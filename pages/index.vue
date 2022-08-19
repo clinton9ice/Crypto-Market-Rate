@@ -9,6 +9,8 @@
     <br /> 
     <br /> 
     <MarketTable />
+    <br /> 
+    <br /> 
   </article>
 </template>
 <script>

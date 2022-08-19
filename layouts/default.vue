@@ -164,9 +164,9 @@
                   <DropdownMenu
                     v-if="currency_list && Array.isArray(currency_list)"
                   >
-                    <DropdownItem v-for="item in currency_list" :key="item">
+                    <DropdownItem v-for="item in currency_list" :key="item" @click="setCurrency(item)">
                       <span @click="setCurrency(item)">{{
-                        item != currency && item != false && item
+                        item != currency?  item: ''
                       }}</span>
                     </DropdownItem>
                   </DropdownMenu>
@@ -199,56 +199,57 @@
         </section>
       </Layout>
     </Layout>
+    <TopButton />
   </div>
 </template>
 
 <script>
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import TopButton from '../components/TopButton.vue'
 
 export default {
-  data() {
-    return {
-      isCollapsed: false,
-    }
-  },
-  computed: {
-    rotateIcon() {
-      return ['menu-icon', this.isCollapsed ? 'rotate-icon' : '']
+    data() {
+        return {
+            isCollapsed: false,
+        };
     },
-    menuitemClasses() {
-      return ['menu-item', this.isCollapsed ? 'collapsed-menu' : '']
+    computed: {
+        rotateIcon() {
+            return ["menu-icon", this.isCollapsed ? "rotate-icon" : ""];
+        },
+        menuitemClasses() {
+            return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
+        },
+        currency() {
+            return this.$store.state.selected_currency;
+        },
+        currency_list() {
+            return this.$store.state.currencies;
+        },
     },
-    currency() {
-      return this.$store.state.selected_currency
+    methods: {
+        collapsedSider() {
+            this.$refs.side.toggleCollapse();
+        },
+        setCurrency(currency) {
+            this.$store.commit("change_currency", currency);
+            document.querySelector(".content-body").scrollTo(0, 500);
+        },
     },
-    currency_list() {
-      return this.$store.state.currencies
+    async created() {
+        try {
+            let res = await fetch("https://api.coingecko.com/api/v3/simple/supported_vs_currencies");
+            this.$store.commit("Set_currency", await res.json());
+            this.$store.dispatch("coin_market");
+            setInterval(() => {
+                this.$store.dispatch("coin_market");
+            }, 12000);
+        }
+        catch (e) {
+            this.$Notice.open({ title: e, type: "error" });
+        }
     },
-  },
-  methods: {
-    collapsedSider() {
-      this.$refs.side.toggleCollapse()
-    },
-    setCurrency(currency) {
-      this.$store.commit('change_currency', currency);
-      document.querySelector(".content-body").scrollTo(0, 300);
-    },
-  },
-  async created() {
-    try {
-      let res = await fetch(
-        'https://api.coingecko.com/api/v3/simple/supported_vs_currencies'
-      )
-      this.$store.commit('Set_currency', await res.json())
-      this.$store.dispatch('coin_market')
-      setInterval(() => {
-        this.$store.dispatch('coin_market')
-      }, 12000)
-    } catch (e) {
-      this.$Notice.open({ title: e, type: 'error' })
-    }
-  },
-
+    components: { TopButton }
 }
 </script>

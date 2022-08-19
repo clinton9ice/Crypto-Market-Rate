@@ -17,7 +17,9 @@ white-space: nowrap;
 .bg-bodi{
   background-color: var(--dark-50) !important;
 }
-
+.btn:focus{
+  box-shadow: none !important;
+}
 .text-faint{
   color: var(--white) !important;
 }
@@ -27,6 +29,10 @@ white-space: nowrap;
   outline: none;
   border-color: transparent !important;
 }
+.ivu-layout-sider, .ivu-menu-dark{
+  background-color: var(--dark-50) !important;
+}
+.ivu-select-single .ivu-select-selection .ivu-select-placeholder, .ivu-select-single .ivu-select-selection .ivu-select-selected-value{color: var(--bs-white)}
 
 .ivu-layout{
   background-color: transparent;
@@ -45,6 +51,16 @@ white-space: nowrap;
 }
 .ivu-dropdown-menu .ivu-dropdown-item:hover{
   background-color: var(--dark);
+}
+.ivu-select-selection{
+  border: none;
+  background-color: var(--bs-dark) !important;
+}
+.ivu-select-dropdown-list .ivu-select-item{
+  color: var(--bs-white);
+}
+.ivu-select-dropdown-list .ivu-select-item:hover, .ivu-select-item-selected.ivu-select-item-focus{
+  color: var(--bs-dark);
 }
 ::-webkit-scrollbar{
     height: 5px;
