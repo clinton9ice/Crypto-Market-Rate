@@ -1,0 +1,81 @@
+:root{
+    --dark: hsl(225, 14%, 11%);
+    --dark-50: hsl(223, 22%, 19%);
+    --gray: #CACACE;
+    --white: #ebf4f1;
+    --purple: #7066DD;
+}
+
+body{
+    overflow: hidden;
+    background-color: var(--dark) !important;
+    color: var(--white) !important;
+}
+.nowrap{
+white-space: nowrap;
+}
+.bg-bodi{
+  background-color: var(--dark-50) !important;
+}
+
+.text-faint{
+  color: var(--white) !important;
+}
+
+.btn,.btn:hover, .btn:focus{
+  box-shadow: none;
+  outline: none;
+  border-color: transparent !important;
+}
+
+.ivu-layout{
+  background-color: transparent;
+  color: unset;
+}
+.ivu-dropdown-menu{
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.ivu-dropdown-menu, .ivu-select-dropdown{
+  background-color: var(--dark-50);
+}
+.ivu-dropdown-menu .ivu-dropdown-item{
+  color: var(--white);
+}
+.ivu-dropdown-menu .ivu-dropdown-item:hover{
+  background-color: var(--dark);
+}
+::-webkit-scrollbar{
+    height: 5px;
+    width: 10px;
+}
+::-webkit-scrollbar-thumb{
+background-color: var(--bs-gray-900);
+}
+
+.card-container{
+  background-color: var(--dark-50);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 768px){
+  .ivu-layout-sider.mobile-nav{
+    opacity: 0;
+    z-index: -100;
+  }
+  .ivu-layout-sider.mobile-nav.active{
+    opacity: 1;
+    width: 100% !important;
+    max-width: 60% !important;
+    z-index: 100;
+  }
+  .ivu-layout .content-body{
+    width: 100% !important;
+  }
+  .collapsed-menu span{
+    width: unset !important;
+  }
+  
+}
