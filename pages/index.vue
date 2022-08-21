@@ -10,12 +10,15 @@
     <br /> 
     <MarketTable />
     <br /> 
+    <News_info />
     <br /> 
   </article>
 </template>
 <script>
+import News_info from '../components/News_info.vue';
 export default {
     name: "IndexPage",
+    components: { News_info }
 }
 </script>
 

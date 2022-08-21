@@ -13,7 +13,7 @@
             </Select>
           </div>
         </div>
-    <div class="table-container">
+    <div class="table-container m-auto">
       <table  class="table responsive table-hover bg-dark  table-dark px-3">
 
         <thead class="thead mb-2">    
@@ -30,6 +30,7 @@
         </tbody>
       </table>
     </div>
+
     <div class="controls mt-4" v-if="row_count > 0">
       <div class="d-flex gap-1 justify-content-end">
       <button class="btn btn-sm me-2" @click="prev" :class="[current_column != 1?'btn-light': 'text-secondary border-secondary']" :disabled="current_column === 1">Prev</button>
@@ -96,8 +97,10 @@ export default {
 </script>
 
 <style scoped>
+.table-container, .tb-headline{
+  max-width: 1200px;
+}
 .table-container{
-  max-width: 1000px;
   overflow-x: auto;
 }
 

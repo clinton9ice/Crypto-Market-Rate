@@ -1,7 +1,7 @@
 <template>
   <CardContainer title="Trending" link="#">
     <div
-      class="mt-3 d-flex align-items-center slider gap-3"
+      class="mt-3 slider gap-3"
       v-if="trending && trending.length > 0"
     >
       <div class="card" v-for="trend in trending" :key="trend.item.id">
@@ -62,15 +62,7 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  min-width: 300px;
-  background-color: var(--dark);
-  flex-direction: row;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1rem;
-  flex-shrink: 0;
-}
+
 
 .img-thumb {
   width: 80px;
@@ -84,12 +76,5 @@ export default {
   height: 65px;
   margin: auto;
   border-radius: 50%;
-}
-.slider {
-  overflow: hidden;
-  overflow-x: auto;
-  flex: auto;
-  white-space: nowrap;
-  padding-bottom: 1rem;
 }
 </style>

@@ -20,7 +20,8 @@ export const mutations = {
   },
 
   change_currency(states, payload) {
-    states.selected_currency = payload
+    states.coin_market = [];
+    states.selected_currency = payload;
     this.dispatch('coin_market')
     return states.selected_currency
   },

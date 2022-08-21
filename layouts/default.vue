@@ -107,7 +107,7 @@
         collapsible
         :collapsed-width="78"
         v-model="isCollapsed"
-        :class="['mobile-nav', isCollapsed&&'active']"
+        :class="['mobile-nav', isCollapsed && 'active']"
       >
         <Menu
           active-name="1-2"
@@ -144,9 +144,12 @@
       </Sider>
 
       <Layout>
-        <section :class="[isCollapsed ? 'faint' : '', 'content-body px-4 mobile-main']" @click.stop="isCollapsed = false">
+        <section
+          :class="[isCollapsed ? 'faint' : '', 'content-body px-4 mobile-main']"
+          @click.stop="isCollapsed = false"
+        >
           <Header
-            class="layout-header-bar p-0 d-flex align-items-center justify-content-between"
+            class="layout-header-bar dropdown p-0 d-flex align-items-center justify-content-between"
           >
             <i
               @click.stop="collapsedSider"
@@ -164,9 +167,13 @@
                   <DropdownMenu
                     v-if="currency_list && Array.isArray(currency_list)"
                   >
-                    <DropdownItem v-for="item in currency_list" :key="item" @click="setCurrency(item)">
+                    <DropdownItem
+                      v-for="item in currency_list"
+                      :key="item"
+                      @click="setCurrency(item)"
+                    >
                       <span @click="setCurrency(item)">{{
-                        item != currency?  item: ''
+                        item != currency ? item : ''
                       }}</span>
                     </DropdownItem>
                   </DropdownMenu>
@@ -187,14 +194,15 @@
                 </template>
               </Dropdown>
 
-              <button class="btn btn-dark">
+              <!-- <button class="btn btn-dark">
                 <i class="bi bi-moon"></i>
-              </button>
+              </button> -->
             </div>
           </Header>
 
           <Content class="my-5 position-relative h-100">
             <Nuxt />
+            <LayoutFooter />
           </Content>
         </section>
       </Layout>
@@ -209,47 +217,48 @@ import 'bootstrap/dist/css/bootstrap.css'
 import TopButton from '../components/TopButton.vue'
 
 export default {
-    data() {
-        return {
-            isCollapsed: false,
-        };
+  data() {
+    return {
+      isCollapsed: false,
+    }
+  },
+  computed: {
+    rotateIcon() {
+      return ['menu-icon', this.isCollapsed ? 'rotate-icon' : '']
     },
-    computed: {
-        rotateIcon() {
-            return ["menu-icon", this.isCollapsed ? "rotate-icon" : ""];
-        },
-        menuitemClasses() {
-            return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
-        },
-        currency() {
-            return this.$store.state.selected_currency;
-        },
-        currency_list() {
-            return this.$store.state.currencies;
-        },
+    menuitemClasses() {
+      return ['menu-item', this.isCollapsed ? 'collapsed-menu' : '']
     },
-    methods: {
-        collapsedSider() {
-            this.$refs.side.toggleCollapse();
-        },
-        setCurrency(currency) {
-            this.$store.commit("change_currency", currency);
-            document.querySelector(".content-body").scrollTo(0, 500);
-        },
+    currency() {
+      return this.$store.state.selected_currency
     },
-    async created() {
-        try {
-            let res = await fetch("https://api.coingecko.com/api/v3/simple/supported_vs_currencies");
-            this.$store.commit("Set_currency", await res.json());
-            this.$store.dispatch("coin_market");
-            setInterval(() => {
-                this.$store.dispatch("coin_market");
-            }, 12000);
-        }
-        catch (e) {
-            this.$Notice.open({ title: e, type: "error" });
-        }
+    currency_list() {
+      return this.$store.state.currencies
     },
-    components: { TopButton }
+  },
+  methods: {
+    collapsedSider() {
+      this.$refs.side.toggleCollapse()
+    },
+    setCurrency(currency) {
+      this.$store.commit('change_currency', currency)
+      document.querySelector('.content-body').scrollTo(0, 500)
+    },
+  },
+  async created() {
+    try {
+      let res = await fetch(
+        'https://api.coingecko.com/api/v3/simple/supported_vs_currencies'
+      )
+      this.$store.commit('Set_currency', await res.json())
+      this.$store.dispatch('coin_market')
+      setInterval(() => {
+        this.$store.dispatch('coin_market')
+      }, 12000)
+    } catch (e) {
+      this.$Notice.open({ title: e, type: 'error' })
+    }
+  },
+  components: { TopButton },
 }
 </script>

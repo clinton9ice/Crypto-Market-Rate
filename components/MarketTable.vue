@@ -1,11 +1,10 @@
 <template>
   <CardContainer title="Market Data" :responsive="true">
-    <br />
-    <br />
+  
     <Tableu :columns="tbColumns" :datas="coinMarket">
       <template #td="{ data }">
         <td class="border-0">
-          <span class="bi bi-star me-3"></span>
+          <span class="bi bi-star me-1"></span>
           <span>{{ data.market_cap_rank }}</span>
         </td>
 
@@ -28,7 +27,7 @@
 
         <td class="border-0 nowrap">
           <span v-if="currency === 'usd'">$</span>
-          <span v-if="currency === 'btc'">
+          <span v-else-if="currency === 'btc'">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -42,7 +41,7 @@
               />
             </svg>
           </span>
-          <span v-if="currency === 'eth'">
+          <span v-else-if="currency === 'eth'">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -56,6 +55,7 @@
               />
             </svg>
           </span>
+          <span class="text-muted text-uppercase" v-else>{{currency}}</span>
           {{ data.current_price.toLocaleString() }}
         </td>
 
@@ -82,8 +82,8 @@
         </td>
 
         <td class="border-0 nowrap">
-          <span v-if="currency === 'usd'">$</span>
-          <span v-if="currency === 'btc'">
+          <span v-if="currency == 'usd'">$</span>
+          <span v-else-if="currency === 'btc'">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -97,7 +97,7 @@
               />
             </svg>
           </span>
-          <span v-if="currency === 'eth'">
+          <span v-else-if="currency === 'eth'">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -111,13 +111,16 @@
               />
             </svg>
           </span>
+           <span class="text-muted text-uppercase" v-else>{{currency}}</span>
           {{ data.total_volume.toLocaleString() }}
+
         </td>
 
         <td class="border-0 nowrap">
           <span v-if="currency === 'usd'">$</span>
-          <span v-if="currency === 'btc'">B</span>
-          <span v-if="currency === 'eth'">E</span>
+          <span v-else-if="currency === 'btc'">B</span>
+          <span v-else-if="currency === 'eth'">E</span>
+           <span class="text-muted text-uppercase" v-else>{{currency}}</span>
           {{ data.total_volume.toLocaleString() }}
         </td>
 
@@ -169,7 +172,7 @@ export default {
 
   computed: {
     currency() {
-      return this.$store.state.selected_currency
+      return this.$store.state.selected_currency;
     },
     market() {
       return this.$store.state.coin_market
