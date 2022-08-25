@@ -1,10 +1,10 @@
 <template>
-  <CardContainer title="Trending" link="#">
+  <CardContainer title="Trending" link="/trends">
     <div
       class="mt-3 slider gap-3"
-      v-if="trending && trending.length > 0"
+      v-if="trending && Object.keys(trending).length > 0"
     >
-      <div class="card" v-for="trend in trending" :key="trend.item.id">
+      <div class="card" v-for="trend in trending.coins" :key="trend.item.id">
         <div class="img-thumb d-flex justify-content-center">
           <img :src="trend.item.large" :alt="trend.item.id" loading="lazy" />
         </div>
@@ -34,36 +34,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      trending: [],
-    }
-  },
-  methods: {
-    async getTrends() {
-      try {
-        let req = await this.$axios.get(
-          'https://api.coingecko.com/api/v3/search/trending'
-        )
-        this.trending = req.data.coins
-      } catch (error) {
-        this.$Notice.open({ title: error, type: 'error' })
-      }
+  computed: {
+    trending() {
+      return this.$store.state.trending
     },
-  },
-  mounted() {
-    this.getTrends();
-    setInterval(() => {
-      this.getTrends();
-      console.log("trends updated");
-    }, 1000000);
   },
 }
 </script>
 
 <style scoped>
-
-
 .img-thumb {
   width: 80px;
   height: 80px;

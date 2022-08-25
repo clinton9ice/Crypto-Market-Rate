@@ -5,9 +5,8 @@
         class="d-flex align-items-center justify-content-between px-3 pt-2"
       >
         <div class="h3 title" v-if="title">{{ title }}</div>
-        <a :href="link" v-if="link" class="text-link text-small btn text-white"
-          >View all</a
-        >
+        <nuxt-link :to="link" v-if="link" class="text-link text-small btn text-white"
+          >View all</nuxt-link>
       </header>
     </slot>
 

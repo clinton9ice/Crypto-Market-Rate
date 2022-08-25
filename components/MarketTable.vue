@@ -1,6 +1,5 @@
 <template>
   <CardContainer title="Market Data" :responsive="true">
-  
     <Tableu :columns="tbColumns" :datas="coinMarket">
       <template #td="{ data }">
         <td class="border-0">
@@ -10,18 +9,20 @@
 
         <td class="border-0 nowrap me-2">
           <div class="d-flex align-items-center">
-          
-            <div class="img bg-dark me-2" style="width:40px; height:40px; border-radius: 50%;">
-                <img
+            <div
+              class="img bg-dark me-2"
+              style="width: 40px; height: 40px; border-radius: 50%"
+            >
+              <img
                 :src="data.image"
                 class="img-thumbnail bg-transparent border-0"
                 :alt="data.symbol"
                 loading="lazy"
-                style="width: 40px;"
+                style="width: 40px"
               />
             </div>
-              <a href="#" class="text-white">{{ data.name }}</a>
-              <sup class="text-muted ms-2">{{ data.symbol }}</sup>
+            <nuxt-link :to="'/coins/'+data.id" class="text-white">{{ data.name }}</nuxt-link>
+            <sup class="text-muted ms-2">{{ data.symbol }}</sup>
           </div>
         </td>
 
@@ -55,7 +56,7 @@
               />
             </svg>
           </span>
-          <span class="text-muted text-uppercase" v-else>{{currency}}</span>
+          <span class="text-muted text-uppercase" v-else>{{ currency }}</span>
           {{ data.current_price.toLocaleString() }}
         </td>
 
@@ -111,16 +112,15 @@
               />
             </svg>
           </span>
-           <span class="text-muted text-uppercase" v-else>{{currency}}</span>
+          <span class="text-muted text-uppercase" v-else>{{ currency }}</span>
           {{ data.total_volume.toLocaleString() }}
-
         </td>
 
         <td class="border-0 nowrap">
           <span v-if="currency === 'usd'">$</span>
           <span v-else-if="currency === 'btc'">B</span>
           <span v-else-if="currency === 'eth'">E</span>
-           <span class="text-muted text-uppercase" v-else>{{currency}}</span>
+          <span class="text-muted text-uppercase" v-else>{{ currency }}</span>
           {{ data.total_volume.toLocaleString() }}
         </td>
 
@@ -131,7 +131,8 @@
           {{ data.market_cap.toLocaleString() }}
         </td>
       </template>
-    </Tableu>  <br />
+    </Tableu>
+    <br />
   </CardContainer>
 </template>
 
@@ -172,7 +173,7 @@ export default {
 
   computed: {
     currency() {
-      return this.$store.state.selected_currency;
+      return this.$store.state.selected_currency
     },
     market() {
       return this.$store.state.coin_market

@@ -140,13 +140,15 @@
             <Icon type="ios-search" class="me-3"></Icon>
             <span>Search</span>
           </MenuItem>
+          <div class='close-btn'>
+            <button class='btn btn-dark btn-sm' @click='isCollapsed = false'><i class='bi bi-x'></i></button>
+          </div>
         </Menu>
       </Sider>
 
       <Layout>
         <section
           :class="[isCollapsed ? 'faint' : '', 'content-body px-4 mobile-main']"
-          @click.stop="isCollapsed = false"
         >
           <Header
             class="layout-header-bar dropdown p-0 d-flex align-items-center justify-content-between"
@@ -157,7 +159,7 @@
               class="bi bi-arrow-bar-left text-faint"
             ></i>
             <div class="d-flex align-items-center gap-3 pe-3">
-              <Dropdown trigger="click" class="text-uppercase">
+              <Dropdown class="text-uppercase">
                 <button class="btn text-faint d-flex align-item-center">
                   <span class="text-uppercase">{{ currency }}</span>
                   <span class="bi bi-caret-down-fill ms-2"></span>
@@ -180,7 +182,7 @@
                 </template>
               </Dropdown>
 
-              <Dropdown trigger="click" class="text-upperCase">
+              <Dropdown class="text-upperCase">
                 <button class="btn text-white d-flex align-item-center">
                   <span>English</span>
                   <span class="bi bi-caret-down-fill ms-3"></span>
@@ -193,10 +195,6 @@
                   </DropdownMenu>
                 </template>
               </Dropdown>
-
-              <!-- <button class="btn btn-dark">
-                <i class="bi bi-moon"></i>
-              </button> -->
             </div>
           </Header>
 
@@ -252,6 +250,7 @@ export default {
       )
       this.$store.commit('Set_currency', await res.json())
       this.$store.dispatch('coin_market')
+      this.$store.dispatch('trends')
       setInterval(() => {
         this.$store.dispatch('coin_market')
       }, 12000)

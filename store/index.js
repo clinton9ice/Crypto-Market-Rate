@@ -3,6 +3,7 @@ export const state = () => ({
   currencies: [],
   coin_market: [],
   coin_list: [],
+  trending: []
 })
 
 export const getters = {
@@ -29,6 +30,9 @@ export const mutations = {
   Coin_Market(s, payload) {
     s.coin_market = payload
   },
+  Set_trends(s, payload) {
+    s.trending = payload;
+  }
 }
 
 export const actions = {
@@ -39,4 +43,8 @@ export const actions = {
     context.commit('Coin_Market', await req.json())
     
   },
+  async trends(context) {
+    let result = await this.$axios.get('https://api.coingecko.com/api/v3/search/trending');
+    context.commit("Set_trends", result.data);
+  }
 }
