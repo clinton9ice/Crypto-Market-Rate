@@ -40,8 +40,7 @@ export const actions = {
     let req = await fetch(
       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${context.state.selected_currency}&order=market_cap_desc&per_page=150&page=1&sparkline=false`
     )
-    context.commit('Coin_Market', await req.json())
-    
+    context.commit('Coin_Market', await req.json());
   },
   async trends(context) {
     let result = await this.$axios.get('https://api.coingecko.com/api/v3/search/trending');

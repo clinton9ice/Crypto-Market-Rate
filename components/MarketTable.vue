@@ -21,7 +21,9 @@
                 style="width: 40px"
               />
             </div>
-            <nuxt-link :to="'/coins/'+data.id" class="text-white">{{ data.name }}</nuxt-link>
+            <nuxt-link :to="'/coins/' + data.id" class="text-white">{{
+              data.name
+            }}</nuxt-link>
             <sup class="text-muted ms-2">{{ data.symbol }}</sup>
           </div>
         </td>
@@ -61,22 +63,36 @@
         </td>
 
         <td class="border-0">
-          <span class="text-danger" v-if="data.price_change_percentage_24h < 0"
+          <span
+            class="text-danger"
+            v-if="
+              data.price_change_percentage_24h !== null &&
+              data.price_change_percentage_24h < 0
+            "
             >{{ data.price_change_percentage_24h.toFixed(1) }}%
             <i class="bi bi-caret-down-fill me-2"></i
           ></span>
-          <span style="color: var(--bs-teal)" v-else
+          <span
+            style="color: var(--bs-teal)"
+            v-else-if="
+              data.price_change_percentage_24h !== null &&
+              data.price_change_percentage_24h >= 0
+            "
             >{{ data.price_change_percentage_24h.toFixed(1) }}%
             <i class="bi bi-caret-up-fill me-2"></i>
           </span>
         </td>
 
         <td class="border-0">
-          <span class="text-danger" v-if="data.price_change_24h < 0"
+          <span
+            class="text-danger"
+            v-if="data.price_change_24h && data.price_change_24h < 0"
             >{{ data.price_change_24h.toFixed(1) }}%
             <i class="bi bi-caret-down-fill me-2"></i
           ></span>
-          <span style="color: var(--bs-teal)" v-else
+          <span
+            style="color: var(--bs-teal)"
+            v-else-if="data.price_change_24h && data.price_change_24h >= 0"
             >{{ data.price_change_24h.toFixed(1) }}%
             <i class="bi bi-caret-up-fill me-2"></i>
           </span>

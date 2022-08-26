@@ -1,5 +1,6 @@
 <template>
   <CardContainer title="Trending" link="/trends">
+  
     <div
       class="mt-3 slider gap-3"
       v-if="trending && Object.keys(trending).length > 0"
