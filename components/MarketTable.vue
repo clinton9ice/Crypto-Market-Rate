@@ -86,14 +86,16 @@
         <td class="border-0">
           <span
             class="text-danger"
-            v-if="data.price_change_24h && data.price_change_24h < 0"
-            >{{ data.price_change_24h.toFixed(1) }}%
+            v-if="data.ath_change_percentage && data.ath_change_percentage < 0"
+            >{{ data.ath_change_percentage.toFixed(1) }}%
             <i class="bi bi-caret-down-fill me-2"></i
           ></span>
           <span
             style="color: var(--bs-teal)"
-            v-else-if="data.price_change_24h && data.price_change_24h >= 0"
-            >{{ data.price_change_24h.toFixed(1) }}%
+            v-else-if="
+              data.ath_change_percentage && data.ath_change_percentage >= 0
+            "
+            >{{ data.ath_change_percentage.toFixed(1) }}%
             <i class="bi bi-caret-up-fill me-2"></i>
           </span>
         </td>
@@ -134,14 +136,6 @@
 
         <td class="border-0 nowrap">
           <span v-if="currency === 'usd'">$</span>
-          <span v-else-if="currency === 'btc'">B</span>
-          <span v-else-if="currency === 'eth'">E</span>
-          <span class="text-muted text-uppercase" v-else>{{ currency }}</span>
-          {{ data.total_volume.toLocaleString() }}
-        </td>
-
-        <td class="border-0 nowrap">
-          <span v-if="currency === 'usd'">$</span>
           <span v-if="currency === 'btc'">B</span>
           <span v-if="currency === 'eth'">E</span>
           {{ data.market_cap.toLocaleString() }}
@@ -171,13 +165,10 @@ export default {
           title: '24hr',
         },
         {
-          title: '7d',
+          title: 'ATH',
         },
         {
           title: 'Volume',
-        },
-        {
-          title: '24 volume',
         },
         {
           title: 'Mkt Cap',
@@ -198,12 +189,18 @@ export default {
 
   watch: {
     market(e) {
-      this.coinMarket = e
-      // console.log(e)
+      this.coinMarket = e;
     },
   },
   async created() {
-    // this is where you paste your api key
+    try {
+      this.$store.dispatch('coin_market')
+      setInterval(() => {
+        this.$store.dispatch('coin_market')
+      }, 12000)
+    } catch (error) {
+      this.$Notice.open({ title: error, type: 'error' })
+    }
   },
 }
 </script>

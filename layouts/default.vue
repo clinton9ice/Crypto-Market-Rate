@@ -96,6 +96,9 @@
   .ivu-menu-submenu-title-active:not(.ivu-menu-submenu) {
   color: #fff;
 }
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical {
+  background-color: transparent;
+}
 </style>
 
 <template>
@@ -140,8 +143,10 @@
             <Icon type="ios-search" class="me-3"></Icon>
             <span>Search</span>
           </MenuItem>
-          <div class='close-btn'>
-            <button class='btn btn-dark btn-sm' @click='isCollapsed = false'><i class='bi bi-x'></i></button>
+          <div class="close-btn">
+            <button class="btn btn-dark btn-sm" @click="isCollapsed = false">
+              <i class="bi bi-x"></i>
+            </button>
           </div>
         </Menu>
       </Sider>
@@ -240,7 +245,7 @@ export default {
     },
     setCurrency(currency) {
       this.$store.commit('change_currency', currency)
-      document.querySelector('.content-body').scrollTo(0, 500)
+      // document.querySelector('.content-body').scrollTo(0, 500);
     },
   },
   async created() {
@@ -249,11 +254,7 @@ export default {
         'https://api.coingecko.com/api/v3/simple/supported_vs_currencies'
       )
       this.$store.commit('Set_currency', await res.json())
-      this.$store.dispatch('coin_market')
-      this.$store.dispatch('trends')
-      setInterval(() => {
-        this.$store.dispatch('coin_market')
-      }, 12000)
+      this.$store.dispatch('trends');
     } catch (e) {
       this.$Notice.open({ title: e, type: 'error' })
     }

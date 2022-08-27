@@ -101,18 +101,18 @@
           <span class="text-muted">last updated: </span>
           <span class="fw-bold">{{ result.last_updated }}</span>
         </p>
-        <div class="details py-4 col-7">
+        <div class="details py-4">
           <div class="border-bottom border-dark">
             <p>
-              <span class="me-3 text-muted">24 Hour Trading:</span>
+              <span class="me-3 text-muted">24 Hours Rate:</span>
               <span
-                v-if="result.market_data.price_change_24h >= 0"
+                v-if="result.market_data.price_change_percentage_24h >= 0"
                 style="color: var(--bs-teal)"
               >
-                {{ result.market_data.price_change_24h.toFixed(2) }}%
+                {{ result.market_data.price_change_percentage_24h.toFixed(2) }}%
               </span>
               <span v-else class="text-danger">
-                {{ result.market_data.price_change_24h.toFixed(2) }}%
+                {{ result.market_data.price_change_percentage_24h.toFixed(2) }}%
               </span>
             </p>
           </div>
@@ -274,7 +274,7 @@
             </span>
           </p>
 
-          <p>
+          <p class="border-bottom border-dark">
             <span class="text-muted">Circulating Supply: </span>
             <span
               class="fw-bold"
@@ -284,14 +284,14 @@
               }}</span
             >
           </p>
-          <p>
+          <p class="border-bottom border-dark">
             <span class="text-muted">Total Supply: </span>
             <span v-if="result.market_data.total_supply">{{
               result.market_data.total_supply.toLocaleString()
             }}</span>
           </p>
 
-          <p>
+          <p class="border-bottom border-dark">
             <span class="text-muted">Total Volume: </span>
             <span
               v-for="(cap, index) in Object.keys(
@@ -320,7 +320,7 @@
             </span>
           </p>
 
-          <p>
+          <p class="border-bottom border-dark">
             <span class="text-muted">Max Supply: </span>
             <span v-if="result.market_data.max_supply">{{
               result.market_data.max_supply.toLocaleString()
@@ -398,7 +398,7 @@
       </div>
 
       <div class="price_performace col-sm-10 col-md-7 col-lg-5">
-        <h3>Price Performance</h3>
+        <h4>Price Performance</h4>
 
         <div class="price_table py-3 col-">
           <header
@@ -436,82 +436,195 @@
                   </span>
                 </span>
               </li>
+
+              <li
+                class="price-item d-flex align-items-center justify-content-between mb-3"
+              >
+                <span class="text-small">24 Hours</span>
+                <div class="text-small">
+                  <div
+                    v-for="(current_price_key, index) in Object.keys(
+                      result.market_data.price_change_24h_in_currency
+                    )"
+                    :key="current_price_key"
+                  >
+                    <div v-if="currentCurrency === current_price_key">
+                      <div
+                        v-if="
+                          Object.values(
+                            result.market_data.price_change_24h_in_currency
+                          )[index] > 0
+                        "
+                      >
+                        <span v-if="currentCurrency === 'usd'">
+                          {{
+                            Object.values(
+                              result.market_data.price_change_24h_in_currency
+                            )[index]
+                          }}$</span
+                        >
+                        <span v-else>
+                          <sub class="text-muted me-1">{{
+                            currentCurrency
+                          }}</sub>
+                        </span>
+                      </div>
+
+                      <div v-else class="text-danger">
+                        <div v-if="currentCurrency === 'usd'">
+                          {{
+                            Object.values(
+                              result.market_data.price_change_24h_in_currency
+                            )[index].toFixed(8)
+                          }}$
+                        </div>
+                        <div v-else>
+                          <sub class="text-muted me-1">{{
+                            currentCurrency
+                          }}</sub>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
               <li
                 class="price-item d-flex align-items-center justify-content-between mb-3"
               >
                 <span class="text-small">30 Days</span>
                 <div class="text-small">
-                  <span
+                  <div
                     v-for="(current_price_key, index) in Object.keys(
                       result.market_data.price_change_percentage_30d_in_currency
                     )"
                     :key="current_price_key"
                   >
-                    <span v-if="currentCurrency === current_price_key">
-                      <span v-if="currentCurrency === 'usd'"
-                        >${{
+                    <div v-if="currentCurrency === current_price_key">
+                      <div
+                        v-if="
                           Object.values(
                             result.market_data
                               .price_change_percentage_30d_in_currency
-                          )[index]
-                        }}</span
+                          )[index] > 0
+                        "
                       >
-                      <span v-else>
-                        <sub class="text-muted me-1">{{ currentCurrency }}</sub
-                        >{{
-                          Object.values(
-                            result.market_data
-                              .price_change_percentage_30d_in_currency
-                          )[index]
-                        }}
-                      </span>
-                    </span>
-                  </span>
+                        <span v-if="currentCurrency === 'usd'">
+                          {{
+                            Object.values(
+                              result.market_data
+                                .price_change_percentage_30d_in_currency
+                            )[index]
+                          }}$</span
+                        >
+                        <span v-else>
+                          <sub class="text-muted me-1">{{
+                            currentCurrency
+                          }}</sub>
+                        </span>
+                      </div>
+
+                      <div v-else class="text-danger">
+                        <div v-if="currentCurrency === 'usd'">
+                          {{
+                            Object.values(
+                              result.market_data
+                                .price_change_percentage_30d_in_currency
+                            )[index].toFixed(8)
+                          }}$
+                        </div>
+                        <div v-else>
+                          <sub class="text-muted me-1">{{
+                            currentCurrency
+                          }}</sub>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </li>
+
               <li
                 class="price-item d-flex align-items-center justify-content-between mb-3"
               >
                 <span class="text-small">60 Days</span>
                 <div class="text-small">
-                  <span
+             
+                  <div
                     v-for="(current_price_key, index) in Object.keys(
                       result.market_data.price_change_percentage_60d_in_currency
                     )"
                     :key="current_price_key"
                   >
-                    <span v-if="currentCurrency === current_price_key">
-                      <span v-if="currentCurrency === 'usd'"
-                        >${{
+                    <div v-if="currentCurrency === current_price_key">
+                      <div
+                        v-if="
                           Object.values(
                             result.market_data
                               .price_change_percentage_60d_in_currency
-                          )[index]
-                        }}</span
+                          )[index] > 0
+                        "
                       >
-                      <span v-else>
-                        <sub class="text-muted me-1">{{ currentCurrency }}</sub
-                        >{{
-                          Object.values(
-                            result.market_data
-                              .price_change_percentage_60d_in_currency
-                          )[index]
-                        }}
-                      </span>
-                    </span></span
-                  >
+                        <span v-if="currentCurrency === 'usd'">
+                          {{
+                            Object.values(
+                              result.market_data
+                                .price_change_percentage_60d_in_currency
+                            )[index]
+                          }}$</span
+                        >
+                        <span v-else>
+                          <sub class="text-muted me-1">{{
+                            currentCurrency
+                          }}</sub>
+                        </span>
+                      </div>
+
+                      <div v-else class="text-danger">
+                        <div v-if="currentCurrency === 'usd'">
+                          {{
+                            Object.values(
+                              result.market_data
+                                .price_change_percentage_60d_in_currency
+                            )[index].toFixed(8)
+                          }}$
+                        </div>
+                        <div v-else>
+                          <sub class="text-muted me-1">{{
+                            currentCurrency
+                          }}</sub>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </li>
             </ul>
           </article>
         </div>
       </div>
+
+      <div
+        class="price_performace col-sm-10 col-md-7 col-lg-10"
+        v-if="result.description.en"
+      >
+        <h3>
+          About <span class="text-capitallize"> {{ result.name }}</span>
+        </h3>
+
+        <p class="details" v-html="result.description.en"></p>
+      </div>
     </article>
+    <News_info />
   </section>
 </template>
 
 <script>
+import News_info from '../../components/News_info.vue'
 export default {
+  components: {
+    News_info,
+  },
   head: {
     title: 'Coins Details',
   },
@@ -541,7 +654,7 @@ export default {
       ).then((res) => res.json())
       this.result = res
 
-      console.log(this.result)
+      // console.log(this.result)
     }, 15000)
     // console.log();
   },
