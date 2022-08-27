@@ -13,6 +13,11 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
+  
+   loading: {
+    color: 'var(--bs-danger)',
+    height: '10px'
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['view-design/dist/styles/iview.css', './assets/style.css'],

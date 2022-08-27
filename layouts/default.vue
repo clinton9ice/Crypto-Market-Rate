@@ -8,9 +8,7 @@
   transition: 300ms ease-in-out;
   width: calc(100% - 200px);
   margin-left: auto;
-  height: 100vh;
-  overflow: hidden;
-  overflow-y: auto;
+  min-height: 100vh;
   scroll-behavior: smooth;
 }
 .ivu-layout .content-body.faint {
@@ -96,7 +94,11 @@
   .ivu-menu-submenu-title-active:not(.ivu-menu-submenu) {
   color: #fff;
 }
-.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical {
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),
+.ivu-menu-dark.ivu-menu-vertical,
+.ivu-menu-dark.ivu-menu-vertical
+  .ivu-menu-submenu-title-active:not(.ivu-menu-submenu),
+.ivu-menu-dark.ivu-menu-vertical {
   background-color: transparent;
 }
 </style>

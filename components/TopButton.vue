@@ -21,7 +21,7 @@ export default {
     //     console.log(window.scrollY);
     //   })
     top() {
-      document.querySelector('.content-body').scrollTo(0, 0)
+      document.querySelector('body').scrollIntoView()
     },
   },
   //   destroyed() {

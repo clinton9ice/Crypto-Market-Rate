@@ -45,12 +45,14 @@
     <div class="controls mt-4" v-if="row_count > 0">
       <div class="d-flex gap-1 justify-content-end">
          <button class="btn btn-sm me-2" @click="prev" :class="[currentPage != 1?'btn-light': 'text-secondary border-secondary']" :disabled="currentPage === 1">Prev</button>
-         
-          <div v-for="item in row_count" :key="item" class="ms-2">
-            <button class="btn btn-rounded btn-light btn-sm" @click="selected(item)" :class="[item === currentPage&&'btn-dark']"> 
-              {{item}}
-            </button> 
+         <div class="overflow-x btn-container">
+            <span v-for="item in row_count" :key="item" class="ms-2">
+              <button class="btn btn-rounded btn-light btn-sm" @click="selected(item)" :class="[item === currentPage&&'btn-dark']"> 
+                {{item}}
+              </button> 
+            </span>
           </div>
+
       <button class="btn btn-sm ms-2" @click="next" :class="[currentPage === row_count-1? 'text-secondary border-secondary': 'btn-secondary']">Next</button>
       </div>
     </div>
@@ -134,8 +136,12 @@ export default {
 .table-container, .tb-headline{
   max-width: 1200px;
 }
-.table-container{
+.table-container, .btn-container{
   overflow-x: auto;
+}
+.btn-container{
+  max-width: 300px;
+  white-space: nowrap;
 }
 
 </style>
