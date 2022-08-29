@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <header class="trnd-jumb">
       <h2 class="title">Trending coins</h2>
     </header>
     <br />
     <br />
     <main class="py-5">
-      <div class="search-area col-5">
+      <div class="search-area col-lg-5 col-sm-10 col-md-7">
         <label for="search" class="form-label">Search Trends</label>
         <input type="text" class="form-control dark" />
       </div>

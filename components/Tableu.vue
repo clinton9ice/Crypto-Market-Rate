@@ -4,7 +4,7 @@
   No Data
   </div>
   <div v-else>
-        <div class="tb-headline mb-4 d-flex justify-content-end">
+        <div class="tb-headline mb-3 d-flex justify-content-end" v-if="divide">
 
           <div class="block">
           <label class="form-label d-block" for="rows"> Number of pages </label>
@@ -16,16 +16,17 @@
         </div>
 
     <div class="table-container m-auto">
+      <br />
       <table  class="table responsive table-hover bg-dark  table-dark px-3">
 
         <thead class="thead mb-2">    
-          <td class="th" v-for="(th, index) in columns" :key="index">
-            <th class="border-0 nowrap" @click="sort(th.title)">{{ th.title }} </th>
+          <td class="th p-3" v-for="(th, index) in columns" :key="index">
+            <th class="border-0 nowrap">{{ th.title }} </th>
           </td>
         </thead>
         <br />
 
-        <tbody class="tbody pt-5 bg-bodi" id="market_table" v-if="loaded">
+        <tbody class="tbody pt-5 bg-bodi px-3" id="market_table" v-if="loaded">
           <tr  v-for="(item, index) in display_list()" :key="index">
             <slot name="td" :data="item"/>
           </tr>
@@ -36,13 +37,13 @@
               <Spin size="large" />
           </Space>
         </div>
-        <div class="container py-5 text-center" v-if="!loaded && empty">
-          Empty Table
-        </div>
+        <tbody v-if="!loaded && empty">
+          <tr><td class="text-muted text-center py-3"  :colspan="columns.length">No Data Found</td></tr>
+        </tbody>
       </table>
     </div>
 
-    <div class="controls mt-4" v-if="row_count > 0">
+    <div class="controls mt-4" v-if="row_count > 0 && paginate">
       <div class="d-flex gap-1 justify-content-end">
          <button class="btn btn-sm me-2" @click="prev" :class="[currentPage != 1?'btn-light': 'text-secondary border-secondary']" :disabled="currentPage === 1">Prev</button>
          <div class="overflow-x btn-container">
@@ -61,8 +62,7 @@
 </template>
 
 <script>
-import ClientOnly from 'vue-client-only' 
-import { Space } from "view-design"
+import ClientOnly from 'vue-client-only';
   
 export default {
 
@@ -77,6 +77,14 @@ export default {
     datas: {
       type: Array,
       required: true
+    },
+    paginate: {
+      default: false,
+      type: Boolean
+    },
+    divide: {
+      default: false,
+      type: Boolean
     }
   },
 

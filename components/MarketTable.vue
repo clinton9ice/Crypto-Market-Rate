@@ -1,6 +1,6 @@
 <template>
   <CardContainer title="Market Data" :responsive="true">
-    <Tableu :columns="tbColumns" :datas="coinMarket">
+    <Tableu :columns="tbColumns" :datas="coinMarket" :paginate="true" :divide="true">
       <template #td="{ data }">
         <td class="border-0">
           <span class="bi bi-star me-1"></span>
@@ -69,7 +69,7 @@
               data.price_change_percentage_24h !== null &&
               data.price_change_percentage_24h < 0
             "
-            >{{ data.price_change_percentage_24h.toFixed(1) }}%
+            >{{ data.price_change_percentage_24h.toFixed(2) }}%
             <i class="bi bi-caret-down-fill me-2"></i
           ></span>
           <span
@@ -197,7 +197,7 @@ export default {
       this.$store.dispatch('coin_market')
       setInterval(() => {
         this.$store.dispatch('coin_market')
-      }, 12000)
+      }, 1200)
     } catch (error) {
       this.$Notice.open({ title: error, type: 'error' })
     }
