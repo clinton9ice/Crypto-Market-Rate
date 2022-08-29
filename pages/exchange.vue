@@ -79,7 +79,7 @@ export default {
   },
   async created() {
     this.rates = await this.exchange_rate()
-    console.log(this.top_exchange_rate())
+   //  console.log(this.top_exchange_rate())
   },
 }
 </script>
