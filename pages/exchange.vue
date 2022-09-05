@@ -11,7 +11,7 @@
           :key="item.id"
         >
           <div
-            class="cap me-5 d-flex align-items-center flex-wrap gap-3 w-100 justify-content-between"
+            class="cap me-5 d-flex align-items-center flex-wrap gap-3 w-100 justify-content-"
           >
             <div class="img">
               <img
@@ -22,7 +22,7 @@
             </div>
 
             <div
-              class="d-flex ms-3 sm-ms-0 gap-2 w-100 align-items-center justify-content-between flex-wrap"
+              class="d-flex ms-3 sm-ms-0 gap-2 align-items-center justify-content-between flex-wrap"
             >
               <div class="details">
                 <p class="mb-0">{{ item.name }}</p>
