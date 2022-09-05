@@ -188,20 +188,6 @@
                   </DropdownMenu>
                 </template>
               </Dropdown>
-
-              <Dropdown class="text-upperCase">
-                <button class="btn text-white d-flex align-item-center">
-                  <span>English</span>
-                  <span class="bi bi-caret-down-fill ms-3"></span>
-                </button>
-
-                <template #list>
-                  <DropdownMenu>
-                    <DropdownItem> French </DropdownItem>
-                    <DropdownItem> Spanish </DropdownItem>
-                  </DropdownMenu>
-                </template>
-              </Dropdown>
             </div>
           </Header>
 
@@ -246,8 +232,7 @@ export default {
       this.$refs.side.toggleCollapse()
     },
     setCurrency(currency) {
-      this.$store.commit('change_currency', currency)
-      // document.querySelector('.content-body').scrollTo(0, 500);
+      this.$store.commit('change_currency', currency);
     },
   },
   async created() {

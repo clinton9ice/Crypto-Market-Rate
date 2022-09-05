@@ -28,7 +28,7 @@
 
         <tbody class="tbody pt-5 bg-bodi px-3" id="market_table" v-if="loaded">
           <tr  v-for="(item, index) in display_list()" :key="index">
-            <slot name="td" :data="item"/>
+            <slot name="td" :data="item" :i="index"/>
           </tr>
         </tbody>
         <div class="container" v-else-if="!loaded & !empty">
@@ -54,7 +54,7 @@
             </span>
           </div>
 
-      <button class="btn btn-sm ms-2" @click="next" :class="[currentPage === row_count-1? 'text-secondary border-secondary': 'btn-secondary']">Next</button>
+      <button class="btn btn-sm ms-2" @click="next" :class="[currentPage === row_count? 'text-secondary border-secondary': 'btn-secondary']">Next</button>
       </div>
     </div>
   </div>
@@ -116,7 +116,7 @@ export default {
     },
 
     next() {
-       if (this.currentPage  < 1) this.currentPage++;
+       if (this.currentPage  !=0 && this.currentPage < this.row_count ) this.currentPage++;
     },
 
     selected(index) {

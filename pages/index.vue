@@ -1,6 +1,6 @@
 <template>
   <article>
-    <header class="col-8">
+    <header class="col-md-8 col-sm-10">
       <h1>Today's Crypto Market Rate</h1>
       <p class="text-muted">Stay Update with the latest market cap pricelist</p>
     </header>

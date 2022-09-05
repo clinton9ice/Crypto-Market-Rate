@@ -197,7 +197,7 @@ export default {
       this.$store.dispatch('coin_market')
       setInterval(() => {
         this.$store.dispatch('coin_market')
-      }, 1200)
+      }, 6000)
     } catch (error) {
       this.$Notice.open({ title: error, type: 'error' })
     }

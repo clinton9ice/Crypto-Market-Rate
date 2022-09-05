@@ -171,4 +171,8 @@ input:focus, btn:focus{
     display: block;
     width: 100% !important;
   }
+  .sm-ms-0, .ms-3, .sm-ps-0{
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
 }

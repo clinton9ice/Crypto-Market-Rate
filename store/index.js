@@ -38,7 +38,7 @@ export const mutations = {
 export const actions = {
   async coin_market(context) {
     let req = await fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${context.state.selected_currency}&order=market_cap_desc&per_page=200&page=1&sparkline=false`
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${context.state.selected_currency}&order=market_cap_desc&per_page=200&page=1&sparkline=true`
     )
     context.commit('Coin_Market', await req.json());
   },
