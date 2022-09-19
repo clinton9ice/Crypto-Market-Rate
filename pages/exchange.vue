@@ -3,15 +3,17 @@
     <CardContainer title="Top Exchange Coins" class="bg-transparent">
       <ul
         class="cards d-flex align-items-center flex-wrap gap-3 px-0 pt-3"
-        v-if="top_exchange_rate() && Array.isArray(top_exchange_rate())"
+        v-if="top_exchanges() && Array.isArray(top_exchanges())"
       >
         <li
           class="d-flex col-sm-12 flex-wrap col-md-8 col-lg-5 align-items-center justify-content-between bg-dark px-3 rounded py-3"
-          v-for="item in top_exchange_rate()"
+          v-for="item in top_exchanges()"
           :key="item.id"
         >
-          <div
-            class="cap me-5 d-flex align-items-center flex-wrap gap-3 w-100 justify-content-"
+          <a
+            class="cap me-5 d-flex align-items-center flex-wrap gap-3 w-100 text-link"
+            :href="item.url"
+            target="_blank"
           >
             <div class="img">
               <img
@@ -30,10 +32,7 @@
               </div>
 
               <div class="raio">
-                <p
-                  class="mb-0 text-small"
-                  style="color: var(--bs-teal);"
-                >
+                <p class="mb-0 text-small" style="color: var(--bs-teal)">
                   {{ item.trust_score }}%
                 </p>
                 <p class="mb-0 text-small text-muted">
@@ -41,17 +40,17 @@
                 </p>
               </div>
             </div>
-          </div>
+          </a>
         </li>
       </ul>
     </CardContainer>
 
     <br />
     <CardContainer title="All Exchange Scores" class="bg-transparent">
-      <Tableu :columns="tHead" :datas="rates">
+      <Tableu :columns="tHead" :datas="scores">
         <template #td="{ data, i }">
-          <td class="td">{{ i + 1 }}</td>
-          <td class="td">
+          <td class="td ps-3">{{ i + 1 }}</td>
+          <td class="td me-5">
             <a
               :href="data.url"
               target="_blank"
@@ -62,25 +61,41 @@
                 :alt="data.name"
                 class="img-thumbnail border-0 bg-transparent"
               />
-              <h6 class="ms-2">
+              <h6 class="ms-2 me-4">
                 {{ data.name }}
                 <p class="text-small text-muted">{{ data.country }}</p>
               </h6>
             </a>
           </td>
-          <td class="td">B{{ data.trade_volume_24h_btc.toLocaleString() }}</td>
+          <td class="td ms-5 ps-4">
+            <i class="bi bi-currency-bitcoin"></i>
+            {{ data.trade_volume_24h_btc.toLocaleString() }}
+          </td>
           <td class="td">
-            B
+            <i class="bi bi-currency-bitcoin"></i>
             {{ data.trade_volume_24h_btc_normalized.toLocaleString() }}
           </td>
 
           <td class="td">
             <button class="btn">
-              <i
-                class="bi bi-star-fill text-warning"
-                v-for="(item, index) in data.trust_score"
-                :key="index"
-              ></i>
+              
+              <span v-if="data.trust_score ===1">
+                <i class="bi bi-star-fill text-warning"></i>
+              </span>
+              <span v-else-if="data.trust_score <= 5">
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+              </span>
+              <span v-else-if="data.trust_score > 9">
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+              </span>
+              <span v-else>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-half text-warning"></i>
+              </span>
+             
             </button>
 
             <span class="text-muted"> ({{ data.trust_score }})</span>
@@ -88,6 +103,36 @@
         </template>
       </Tableu>
     </CardContainer>
+    <br />
+
+     <CardContainer title="Exchange Rates" class="bg-transparent">
+      <br />
+
+      <div class="cards d-flex bg-dark px-3 flex-wrap align-items-center justify-content-between">
+        <div class="d-flex gap-5 align-items-center">
+          <div>
+            <span class="text-muted text-small">Name</span>
+            <p class="text-small">Binance</p>
+          </div>
+          <div>
+            <span class="text-muted text-small">Unit</span>
+            <p class="text-small">BUSD</p>
+          </div>
+          <div>
+            <span class="text-muted text-small">Value</span>
+            <p class="text-small">1</p>
+          </div>
+          <div>
+            <span class="text-muted text-small">Type</span>
+            <p class="text-small">Crypto</p>
+            
+          </div>
+        </div>
+        <a class="btn btn-gradient">
+          Open
+        </a>
+      </div>
+     </CardContainer>
   </section>
 </template>
 
@@ -98,6 +143,7 @@ export default {
   components: { CardContainer },
   data: () => ({
     rates: '',
+    scores: "",
     tHead: [
       { title: '#' },
       { title: 'Exchange' },
@@ -107,26 +153,46 @@ export default {
     ],
   }),
   methods: {
-    exchange_rate: async function () {
+    exchanges: async function () {
       let result = await fetch('https://api.coingecko.com/api/v3/exchanges')
       return await result.json()
     },
+    exchange_rates: async function () {
+      let result = await fetch('https://api.coingecko.com/api/v3/exchange_rates')
+      return await result.json()
+    },
 
-    top_exchange_rate: function () {
+    top_exchanges: function () {
       // Check if the rates data is available
-      if (!Array.isArray(this.rates) && this.rates === '') return null
+      if (!Array.isArray(this.scores) && this.scores === '') return null
 
-      //  Filter out the data that has the top 3 data trust score (max =10)
-      let result = this.rates.filter((item) => item.trust_score === 10)
+      //  Filter out the data that has the top 3 trust score (max =10)
+      let result = this.scores.filter((item) => item.trust_score === 10)
 
       return result.length < 3 ? result : result.splice(0, 3)
     },
   },
   async created() {
-    this.rates = await this.exchange_rate()
-    // console.log(this.rates)
+    //   Promise.allSettled(['https://api.coingecko.com/api/v3/exchanges',"https://api.coingecko.com/api/v3/exchange_rates"]).then((t) =>{
+    //   console.log(t)
+    // })
+    this.scores = await this.exchanges();
+    this.rates = await this.exchange_rates()
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style  scoped>
+  .text-link{
+    text-decoration: none;
+    color: var(--bs-white);
+  }
+  .btn-gradient{
+    background: linear-gradient(327deg, #262c3b, #40474f);
+    color: #fff;
+    transition: 300ms linear;
+  }
+  .btn-gradient:hover{
+    background: linear-gradient(360deg, #262c3b, #40474f) !important;
+  }
+</style>

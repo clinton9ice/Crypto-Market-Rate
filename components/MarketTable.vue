@@ -1,6 +1,11 @@
 <template>
   <CardContainer title="Market Data" :responsive="true">
-    <Tableu :columns="tbColumns" :datas="coinMarket" :paginate="true" :divide="true">
+    <Tableu
+      :columns="tbColumns"
+      :datas="coinMarket"
+      :paginate="true"
+      :divide="true"
+    >
       <template #td="{ data }">
         <td class="border-0">
           <span class="bi bi-star me-1"></span>
@@ -31,30 +36,17 @@
         <td class="border-0 nowrap">
           <span v-if="currency === 'usd'">$</span>
           <span v-else-if="currency === 'btc'">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-            >
-              <path fill="none" d="M0 0h24v24H0z" />
-              <path
-                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-4H8V8h3V6h2v2h1a2.5 2.5 0 0 1 2 4 2.5 2.5 0 0 1-2 4h-1v2h-2v-2zm-1-3v1h4a.5.5 0 1 0 0-1h-4zm0-3v1h4a.5.5 0 1 0 0-1h-4z"
-                fill="rgba(255,255,255,1)"
-              />
-            </svg>
+            <i class="bi bi-currency-bitcoin"></i>
           </span>
           <span v-else-if="currency === 'eth'">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
+              viewBox="0 0 30 30"
+              width="20"
+              fill="#fff"
             >
-              <path fill="none" d="M0 0h24v24H0z" />
               <path
-                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1.95-9H15v2h-4.95a2.5 2.5 0 0 0 4.064 1.41l1.7 1.133A4.5 4.5 0 0 1 8.028 13H7v-2h1.027a4.5 4.5 0 0 1 7.788-2.543L14.114 9.59A2.5 2.5 0 0 0 10.05 11z"
-                fill="rgba(255,255,255,1)"
+                d="M21 22h-3a7 7 0 0 1-6.31-4H18a1 1 0 0 0 0-2h-6.92a6.29 6.29 0 0 1 0-2H19a1 1 0 0 0 0-2h-7.31A7 7 0 0 1 18 8h3a1 1 0 0 0 0-2h-3a9 9 0 0 0-8.47 6H7a1 1 0 0 0 0 2h2.06a8.36 8.36 0 0 0 0 2H6a1 1 0 0 0 0 2h3.53A9 9 0 0 0 18 24h3a1 1 0 0 0 0-2Z"
               />
             </svg>
           </span>
@@ -103,30 +95,17 @@
         <td class="border-0 nowrap">
           <span v-if="currency == 'usd'">$</span>
           <span v-else-if="currency === 'btc'">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-            >
-              <path fill="none" d="M0 0h24v24H0z" />
-              <path
-                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-4H8V8h3V6h2v2h1a2.5 2.5 0 0 1 2 4 2.5 2.5 0 0 1-2 4h-1v2h-2v-2zm-1-3v1h4a.5.5 0 1 0 0-1h-4zm0-3v1h4a.5.5 0 1 0 0-1h-4z"
-                fill="rgba(255,255,255,1)"
-              />
-            </svg>
+            <i class="bi bi-currency-bitcoin"></i>
           </span>
           <span v-else-if="currency === 'eth'">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
+              viewBox="0 0 30 30"
+              width="20"
+              fill="#fff"
             >
-              <path fill="none" d="M0 0h24v24H0z" />
               <path
-                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1.95-9H15v2h-4.95a2.5 2.5 0 0 0 4.064 1.41l1.7 1.133A4.5 4.5 0 0 1 8.028 13H7v-2h1.027a4.5 4.5 0 0 1 7.788-2.543L14.114 9.59A2.5 2.5 0 0 0 10.05 11z"
-                fill="rgba(255,255,255,1)"
+                d="M21 22h-3a7 7 0 0 1-6.31-4H18a1 1 0 0 0 0-2h-6.92a6.29 6.29 0 0 1 0-2H19a1 1 0 0 0 0-2h-7.31A7 7 0 0 1 18 8h3a1 1 0 0 0 0-2h-3a9 9 0 0 0-8.47 6H7a1 1 0 0 0 0 2h2.06a8.36 8.36 0 0 0 0 2H6a1 1 0 0 0 0 2h3.53A9 9 0 0 0 18 24h3a1 1 0 0 0 0-2Z"
               />
             </svg>
           </span>
@@ -136,8 +115,21 @@
 
         <td class="border-0 nowrap">
           <span v-if="currency === 'usd'">$</span>
-          <span v-if="currency === 'btc'">B</span>
-          <span v-if="currency === 'eth'">E</span>
+          <span v-if="currency === 'btc'"
+            ><i class="bi bi-currency-bitcoin"></i
+          ></span>
+          <span v-if="currency === 'eth'">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 30 30"
+              width="20"
+              fill="#fff"
+            >
+              <path
+                d="M21 22h-3a7 7 0 0 1-6.31-4H18a1 1 0 0 0 0-2h-6.92a6.29 6.29 0 0 1 0-2H19a1 1 0 0 0 0-2h-7.31A7 7 0 0 1 18 8h3a1 1 0 0 0 0-2h-3a9 9 0 0 0-8.47 6H7a1 1 0 0 0 0 2h2.06a8.36 8.36 0 0 0 0 2H6a1 1 0 0 0 0 2h3.53A9 9 0 0 0 18 24h3a1 1 0 0 0 0-2Z"
+              />
+            </svg>
+          </span>
           {{ data.market_cap.toLocaleString() }}
         </td>
       </template>
@@ -189,7 +181,7 @@ export default {
 
   watch: {
     market(e) {
-      this.coinMarket = e;
+      this.coinMarket = e
     },
   },
   async created() {
