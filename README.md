@@ -1,13 +1,78 @@
-# Crypto Market Rate
+## Crypto Market Rate
 
-## Build Setup
+A website to helps you show top cryptocurrencies based on currency price, market capitalization and overall circulating supply. ALso you can as well see the trending coins and the market exchange rate.
+
+![Crypto-market-rate](https://)
+
+### ⚒️ Languages / Tools
+
+ <table>
+	 <tbody>
+  <tr>
+   <td align="Center" width="25%"> 
+ <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank" rel="noreferrer"><img src="https://cdn.svgporn.com/logos/html-5.svg" width="36" height="36" alt="HTML" /></a>
+    <br>HTML
+    </td>   
+   
+   <td align="Center" width="35%">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noreferrer"><img src="https://cdn.svgporn.com/logos/css-3.svg" width="36" height="36" alt="CSS" /></a>
+	<br>CSS
+    </td> 
+
+  <td align="Center" width="35%">
+	  <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"><img src="https://seeklogo.com/images/N/nuxt-logo-64E0472AA8-seeklogo.com.png" width="40" height="30" alt="NUXT" /></a>
+	<br>Nuxt
+    </td>   
+	  </tr>
+      <tr>  
+      <td align="Center">
+	  <a href="https://www.coingecko.com/" target="_blank" rel="noreferrer"><img src="https://static.coingecko.com/s/coingecko-logo-white-ea42ded10e4d106e14227d48ea6140dc32214230aa82ef63d0499f9c1e109656.png" alt="API" />API</a>
+    </td> </tr>
+
+</tbody>
+  </table>
+	
+<br>
+
+
+## 🧑🏾‍💻 Demo
+
+Check out the website: [Crypto Market Rate](https://crypto-market-price.vercel.app/)
+
+## 👇🏽 Prerequisites
+
+Before installation, please make sure you have already installed the following tools:
+
+- [Git](https://git-scm.com/downloads)
+- [NodeJs](https://nodejs.org/en/download/)
+
+## 🛠️ Installation Steps
+
+1. [Fork](https://github.com/clinton9ice/Crypto-Market-Rate/fork) the project. Click on the <a href="https://github.com/Dun-sin/Code-Magic/fork"><img src="https://i.imgur.com/G4z1kEe.png" height="15" width="15"></a> icon in the top right to get started
+2. Clone the project, you can use the following command:
 
 ```bash
-# install dependencies
-$ npm install
+git clone https://github.com/<your-github-username>/Crypto-Market-Rate
+```
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+3. Navigate to the project directory
+
+```bash
+cd Crypto-Market-Rate
+
+```
+
+4. Install dependencies with npm install
+
+```bash
+npm install
+```
+
+5. Run the project
+
+```bash
+#Start Live server
+npm run dev
 
 # build for production and launch server
 $ npm run build
@@ -52,3 +117,32 @@ Example: `/static/robots.txt` is mapped as `/robots.txt`.
 ### `store`
 
 This directory contains Vuex store files. Creating a file in this directory automatically activates Vuex.
+
+
+## 🥂 After making a change
+
+1. Create a new branch
+
+```bash
+git checkout -b YourBranchName
+```
+
+2. Add it to staging area
+
+> NOTE: don't commit the package.json
+
+```bash
+git add .
+```
+
+3. Commit your changes with
+
+```bash
+git cz
+```
+
+4. Push your changes
+
+```bash
+git push
+```

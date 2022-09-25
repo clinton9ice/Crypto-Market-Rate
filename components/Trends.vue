@@ -27,8 +27,9 @@
         </div>
       </div>
     </div>
-    <div class="px-3" v-else>
-      <p class="text-muted">No trending coins found</p>
+    <div class="px-3 d-flex gap-1 align-items-center" v-else>
+      <p class="text-muted">No coin found</p>
+      <Spin/>
     </div>
   </CardContainer>
 </template>

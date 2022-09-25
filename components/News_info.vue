@@ -28,7 +28,7 @@
           <p class="details text-small col-10">
             Find out the top trending Market Exchange rates
           </p>
-          <a href="#" class="btn btn-warning">Open</a>
+          <nuxt-link :to="{path:'/exchange', hash:'#exchange_rates'}" class="btn btn-warning">Open</nuxt-link>
         </div>
 
         <div class="img-thumbs">

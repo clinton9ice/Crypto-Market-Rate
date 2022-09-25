@@ -78,8 +78,7 @@
 
           <td class="td">
             <button class="btn">
-              
-              <span v-if="data.trust_score ===1">
+              <span v-if="data.trust_score === 1">
                 <i class="bi bi-star-fill text-warning"></i>
               </span>
               <span v-else-if="data.trust_score <= 5">
@@ -95,44 +94,44 @@
                 <i class="bi bi-star-fill text-warning"></i>
                 <i class="bi bi-star-half text-warning"></i>
               </span>
-             
             </button>
 
             <span class="text-muted"> ({{ data.trust_score }})</span>
           </td>
+          <td class="td"><a class="btn btn-gradient" :href="data.url" target="_blank"> Open </a></td>
         </template>
       </Tableu>
     </CardContainer>
     <br />
 
-     <CardContainer title="Exchange Rates" class="bg-transparent">
+    <CardContainer title="Exchange Rates" class="bg-transparent" id="exchange_rates">
       <br />
 
-      <div class="cards d-flex bg-dark px-3 flex-wrap align-items-center justify-content-between">
+      <div
+        class="cards d-flex bg-dark px-3 mb-3 flex-wrap align-items-center justify-content-between"
+        v-for="(item, index) in rates" :key="index"
+      >
         <div class="d-flex gap-5 align-items-center">
           <div>
             <span class="text-muted text-small">Name</span>
-            <p class="text-small">Binance</p>
+            <p class="text-small">{{item.name}}</p>
           </div>
           <div>
             <span class="text-muted text-small">Unit</span>
-            <p class="text-small">BUSD</p>
+            <p class="text-small">{{item.unit}}</p>
           </div>
           <div>
             <span class="text-muted text-small">Value</span>
-            <p class="text-small">1</p>
+            <p class="text-small">{{item.value.toFixed(3)}}</p>
           </div>
           <div>
             <span class="text-muted text-small">Type</span>
-            <p class="text-small">Crypto</p>
-            
+            <p class="text-small">{{item.type}}</p>
           </div>
         </div>
-        <a class="btn btn-gradient">
-          Open
-        </a>
+        
       </div>
-     </CardContainer>
+    </CardContainer>
   </section>
 </template>
 
@@ -142,8 +141,8 @@ export default {
   name: 'Exchange',
   components: { CardContainer },
   data: () => ({
-    rates: '',
-    scores: "",
+    rates: [],
+    scores: '',
     tHead: [
       { title: '#' },
       { title: 'Exchange' },
@@ -157,42 +156,54 @@ export default {
       let result = await fetch('https://api.coingecko.com/api/v3/exchanges')
       return await result.json()
     },
+
     exchange_rates: async function () {
-      let result = await fetch('https://api.coingecko.com/api/v3/exchange_rates')
-      return await result.json()
+      let req = await fetch(
+        'https://api.coingecko.com/api/v3/exchange_rates'
+      )
+      let data = await req.json();
+        let res = data.rates;
+      let result = [];
+      for (let index = 0; index < Object.keys(res).length; index++) {
+        // Get the rate names from the object keys
+        const rateNames = Object.keys(res)[index];
+        // Get other properties from the rate object values
+        const rateValues = Object.values(res)[index];
+        // Merge the rate names with the rest of the properties to form a single object
+        result.push({title: rateNames, ...rateValues});
+      }
+      return result;
     },
 
     top_exchanges: function () {
-      // Check if the rates data is available
+      // Check if the score rates data is available
       if (!Array.isArray(this.scores) && this.scores === '') return null
 
       //  Filter out the data that has the top 3 trust score (max =10)
-      let result = this.scores.filter((item) => item.trust_score === 10)
+      let result = this.scores.filter((item) => item.trust_score >= 10)
 
       return result.length < 3 ? result : result.splice(0, 3)
     },
+
   },
   async created() {
-    //   Promise.allSettled(['https://api.coingecko.com/api/v3/exchanges',"https://api.coingecko.com/api/v3/exchange_rates"]).then((t) =>{
-    //   console.log(t)
-    // })
-    this.scores = await this.exchanges();
-    this.rates = await this.exchange_rates()
+    this.scores = await this.exchanges()
+    this.rates = await this.exchange_rates();
   },
 }
 </script>
 
-<style  scoped>
-  .text-link{
-    text-decoration: none;
-    color: var(--bs-white);
-  }
-  .btn-gradient{
-    background: linear-gradient(327deg, #262c3b, #40474f);
-    color: #fff;
-    transition: 300ms linear;
-  }
-  .btn-gradient:hover{
-    background: linear-gradient(360deg, #262c3b, #40474f) !important;
-  }
+<style scoped>
+.text-link {
+  text-decoration: none;
+  color: var(--bs-white);
+}
+.btn-gradient {
+  background: linear-gradient(327deg, #262c3b, #40474f);
+  color: #fff;
+  transition: 300ms linear;
+}
+.btn-gradient:hover {
+  background: linear-gradient(360deg, #262c3b, #40474f) !important;
+}
 </style>

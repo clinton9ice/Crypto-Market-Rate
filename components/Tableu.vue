@@ -15,7 +15,7 @@
           </div>
         </div>
 
-    <div class="table-container m-auto">
+    <div class="table-container m-">
       <br />
       <table  class="table responsive table-hover bg-dark  table-dark px-3">
 
@@ -32,10 +32,7 @@
           </tr>
         </tbody>
         <div class="container" v-else-if="!loaded & !empty">
-            <Space size="large">
-        
               <Spin size="large" />
-          </Space>
         </div>
         <tbody v-if="!loaded && empty">
           <tr><td class="text-muted text-center py-3"  :colspan="columns.length">No Data Found</td></tr>
@@ -69,14 +66,13 @@ export default {
   name: 'Tableu',
 
   components: {
-    ClientOnly,
+    ClientOnly
   },
 
   props: {
     columns: Array,
     datas: {
-      type: Array,
-      required: true
+      type: [Array, String],
     },
     paginate: {
       default: false,
@@ -102,7 +98,7 @@ export default {
 
   watch:  {
     datas(data) {
-      if (data) {
+      if (Array.isArray(data)) {
         this.lists = data;
         this.row_count = Math.ceil(this.lists.length / this.pageSize);
         this.loaded = true
