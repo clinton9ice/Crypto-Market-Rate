@@ -111,7 +111,7 @@
         class="cards d-flex bg-dark px-3 mb-3 flex-wrap align-items-center justify-content-between"
         v-for="(item, index) in rates" :key="index"
       >
-        <div class="d-flex gap-5 align-items-center">
+        <div class="d-flex gap-5 align-items-center flex-wrap">
           <div>
             <span class="text-muted text-small">Name</span>
             <p class="text-small">{{item.name}}</p>
